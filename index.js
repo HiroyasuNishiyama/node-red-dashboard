@@ -101,13 +101,7 @@ function addWidget(RED, options) {
 module.exports = function (RED) {
     return {
 	addWidget: function (options) {
-	    try {
-		addWidget(RED, options);
-	    }
-	    catch (e) {
-		console.log(e);
-		console.log(e.stack);
-	    }
+	    return addWidget(RED, options);
 	}
     };
 };
