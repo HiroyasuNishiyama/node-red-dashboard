@@ -21,6 +21,12 @@ angular.module('ui').controller('uiComponentController', ['$scope', 'UiEvents', 
         }
 
         me.init = function () {
+            if (me.item.hasOwnProperty("initController")) {
+                var init = me.item.initController;
+                var func = eval("("+init+")");
+                func(me, $scope, events, $interpolate, $interval);
+                return;
+            }
             switch (me.item.type) {
                 case 'button': {
                     me.buttonClick = function () {
