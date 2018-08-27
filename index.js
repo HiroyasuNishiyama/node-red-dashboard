@@ -14,11 +14,11 @@
  * limitations under the License.
  **/
 
-var ui = undefined;
+var ui = null;
 
 function init(RED) {
     if (!ui) {
-	ui = require("./ui")(RED);
+        ui = require("./ui")(RED);
     }
 }
 
@@ -31,7 +31,7 @@ function init(RED) {
        * group - group name (optional if templateScope = 'global')
        * [width] - width of widget (default automatic)
        * [height] - height of widget (default automatic)
-       * [templateScope] - scope of widhget/global or local (default local) 
+       * [templateScope] - scope of widhget/global or local (default local)
        * [emitOnlyNewValues] - boolean (default true).
              If true, it checks if the payload changed before sending it
              to the front-end. If the payload is the same no message is sent.
@@ -47,52 +47,52 @@ function init(RED) {
 
 function addWidget(RED, options) {
     var is_local = (options.templateScope !== "global");
-    var group = undefined;
-    var tab = undefined;
+    var group = null;
+    var tab = null;
     init(RED);
 
     var ui_control = {
-	type: "template",
-	order: options.order,
-	format: options.format
+        type: "template",
+        order: options.order,
+        format: options.format
     };
     if (is_local) {
         group = RED.nodes.getNode(options.group);
         tab = RED.nodes.getNode(group.config.tab);
-	ui_control.width =
-	    options.hasOwnProperty("width") ? options.width : group.config.width;
-	ui_control.height = options.hasOwnProperty("height") ? options.height : 0;
+        ui_control.width =
+            options.hasOwnProperty("width") ? options.width : group.config.width;
+        ui_control.height = options.hasOwnProperty("height") ? options.height : 0;
     }
     ui_control.templateScope =
-	options.hasOwnProperty("templateScope") ? options.templateScope : "local";
+        options.hasOwnProperty("templateScope") ? options.templateScope : "local";
     var ui_options = {
-	node: options.node,
-	control: ui_control
+        node: options.node,
+        control: ui_control
     }
     if (is_local) {
-	ui_options.group = group;
-	ui_options.tab = tab;
+        ui_options.group = group;
+        ui_options.tab = tab;
     }
     if (options.hasOwnProperty("emitOnlyNewValues")) {
-	ui_options.emitOnlyNewValues = options.emitOnlyNewValues;
+        ui_options.emitOnlyNewValues = options.emitOnlyNewValues;
     }
     if (options.hasOwnProperty("forwardInputMessages")) {
-	ui_options.forwardInputMessages = options.forwardInputMessages;
+        ui_options.forwardInputMessages = options.forwardInputMessages;
     }
     if (options.hasOwnProperty("storeFrontEndInputAsState")) {
-	ui_options.storeFrontEndInputAsState = options.storeFrontEndInputAsState;
+        ui_options.storeFrontEndInputAsState = options.storeFrontEndInputAsState;
     }
     if (options.hasOwnProperty("convert")) {
-	ui_options.convert = options.convert;
+        ui_options.convert = options.convert;
     }
     if (options.hasOwnProperty("beforeEmit")) {
-	ui_options.beforeEmit = options.beforeEmit;
+        ui_options.beforeEmit = options.beforeEmit;
     }
     if (options.hasOwnProperty("convertBack")) {
-	ui_options.convertBack = options.convertBack;
+        ui_options.convertBack = options.convertBack;
     }
     if (options.hasOwnProperty("beforeSend")) {
-	ui_options.beforeSend = options.beforeSend;
+        ui_options.beforeSend = options.beforeSend;
     }
     return ui.add(ui_options);
 }
@@ -100,8 +100,8 @@ function addWidget(RED, options) {
 
 module.exports = function (RED) {
     return {
-	addWidget: function (options) {
-	    return addWidget(RED, options);
-	}
+        addWidget: function (options) {
+            return addWidget(RED, options);
+        }
     };
 };
