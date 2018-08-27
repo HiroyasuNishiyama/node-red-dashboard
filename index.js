@@ -94,6 +94,9 @@ function addWidget(RED, options) {
     if (options.hasOwnProperty("beforeSend")) {
         ui_options.beforeSend = options.beforeSend;
     }
+    if (options.hasOwnProperty("initController")) {
+        ui_options.initController = options.initController.toString();
+    }
     return ui.add(ui_options);
 }
 
