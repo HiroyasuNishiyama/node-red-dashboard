@@ -56,6 +56,7 @@ function addWidget(RED, options) {
         order: options.order,
         format: options.format
     };
+    var node = options.node;
     if (is_local) {
         group = RED.nodes.getNode(options.group);
         tab = RED.nodes.getNode(group.config.tab);
@@ -63,10 +64,16 @@ function addWidget(RED, options) {
             options.hasOwnProperty("width") ? options.width : group.config.width;
         ui_control.height = options.hasOwnProperty("height") ? options.height : 0;
     }
+    else {
+        node = {
+            id: "-dummy-",
+            on: function() {}
+        };
+    }
     ui_control.templateScope =
         options.hasOwnProperty("templateScope") ? options.templateScope : "local";
     var ui_options = {
-        node: options.node,
+        node: node,
         control: ui_control
     }
     if (is_local) {
